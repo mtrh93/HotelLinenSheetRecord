@@ -217,37 +217,49 @@ def calculate_new_linen(new_linen):
     total_linen_used = add_linen_togther(linen_figure_four, suite_linen_used)
     return total_linen_used
 
-    return order_data
+def get_last_week_data():
+    """
+    gets the linen used from linen used sheet for last 7 days
+    """
+    linen_numbers = SHEET.worksheet("linen_used")
 
+    columns = []
+    for ind in range (1,7):
+        column = linen_numbers.col_values(ind)
+        columns.append(column[-7:])
+    return columns
+
+def calculate_week_order(data):
+    """
+    calculates the linen used for the past 7 days
+    """
+    print("confirmed calculating linen order")
+    linen_order_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        linen_order_data.append(round(average))
+    return linen_order_data
 
 def order_day():
     """
-    Get answer to question yes or no for is it a day to order
+    asks user if today is a day that they order linen on
     """
-    while True: 
-        print("Is today a day where you order linen?")
-        print("Please enter yes or no")
+    while True:
+        print("please state if it is a linen order day")
+        print("Example: yes / no")
 
-        answer = input("Enter yes or no here")
-    
-        vailidate_answer(answer)
-
-        if vailidate_answer(answer):
-            print("Answer is valid")
+        answered = input("Enter yes or no here: ")
+        if answered == "yes":
+            order_columns = get_last_week_data()
+            order_data = calculate_week_order(order_columns)
+            update_worksheet(order_data, "linen_to_order")
+            print("Order Calculated and uploaded succesfully")
             break
-    return answer
-
-
-def validate_answer(answered):
-    try:
-        if answered != 'yes' or 'no':
-            raise ValueError(
-                f"Exactly 5 values required, you provided {(answered)}"
-            )
-    except ValueError as e:
-        print(f"Invalid occupancy data: {e}, please try again.\n")
-        return False
-    return True
+        else:
+            break
+    return answered
 
 #main core that runs all functions
 
@@ -262,7 +274,10 @@ def main():
     print("New Linen Calculated\n")
     print(new_linen_used)
     update_worksheet(new_linen_used, "linen_used")
-    order_day_answer = order_day()
+    order_day()
+    print("Linen Automation System Cycle Complete")
+
+
 
 print("Welcome to the hotel automated Linen Stock System\n")
 main()
