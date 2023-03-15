@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 
 # connection between python and google sheet
 SCOPE = [
@@ -255,7 +254,7 @@ def order_day():
         print("please state if it is a linen order day")
         print("Example: yes / no")
 
-        answered = input("Enter yes or no here: ")
+        answered = input("Enter yes or no here: \n")
         if answered == "yes":
             order_columns = get_last_week_data()
             order_data = calculate_week_order(order_columns)
