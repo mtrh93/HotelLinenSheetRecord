@@ -61,23 +61,23 @@ def vailidate_data(values):
 
 #code updates the occupancy worksheet of the google sheet
 
-def update_occupancy_worksheet(data):
-    """
-    Update the occupancy worksheet, adds new row with the list data provided
-    """
-    print("Updating occupancy sheet...\n")
-    occupancy_sheet = SHEET.worksheet("occupancy")
-    occupancy_sheet.append_row(data)
-    print("Occupancy sheet updated succesfully!\n")
+#def update_occupancy_worksheet(data):
+#    """
+#    Update the occupancy worksheet, adds new row with the list data provided
+#    """
+#    print("Updating occupancy sheet...\n")
+#    occupancy_sheet = SHEET.worksheet("occupancy")
+#    occupancy_sheet.append_row(data)
+#    print("Occupancy sheet updated succesfully!\n")
 
-def update_linen_worksheet(data):
-    """
-    Update the linen used worksheet, adds new row with the list data provided
-    """
-    print("Updating linen sheet...\n")
-    linen_sheet = SHEET.worksheet("linen_used")
-    linen_sheet.append_row(data)
-    print("Linen sheet updated succesfully!\n")
+#def update_linen_worksheet(data):
+#    """
+#    Update the linen used worksheet, adds new row with the list data provided
+#    """
+#    print("Updating linen sheet...\n")
+#    linen_sheet = SHEET.worksheet("linen_used")
+#    linen_sheet.append_row(data)
+#    print("Linen sheet updated succesfully!\n")
 
 #refactored code updates the passed worksheet on the google sheet
 #code used is from the love sandwiches walkthrough
@@ -107,83 +107,83 @@ def calculate_linen(linen_row, room_type):
         linen_data.append(linen_type)
     return linen_data
 
-def calculate_single(single_row):
-    """
-    calculate single room linen used
-    """
-    single_guide = SHEET.worksheet("single").get_all_values()
-    single_info = single_guide[1]
-    
-    linen_data_single = []
-    for linen, occupancy in zip(single_info, single_row):
-        linen_single = int(linen) * occupancy
-        linen_data_single.append(linen_single)
-    return linen_data_single
+#def calculate_single(single_row):
+#    """
+#    calculate single room linen used
+#    """
+#    single_guide = SHEET.worksheet("single").get_all_values()
+#    single_info = single_guide[1]
+#    
+#    linen_data_single = []
+#    for linen, occupancy in zip(single_info, single_row):
+#        linen_single = int(linen) * occupancy
+#        linen_data_single.append(linen_single)
+#    return linen_data_single
 
-def calculate_twin(twin_row):
-    """
-    calculate twin room linen used
-    """
-    twin_guide = SHEET.worksheet("twin").get_all_values()
-    twin_info = twin_guide[1]
-    
-    linen_data_twin = []
-    for linen, occupancy in zip(twin_info, twin_row):
-        linen_twin = int(linen) * occupancy
-        linen_data_twin.append(linen_twin)
-    return linen_data_twin
+#def calculate_twin(twin_row):
+#    """
+#    calculate twin room linen used
+#    """
+#    twin_guide = SHEET.worksheet("twin").get_all_values()
+#    twin_info = twin_guide[1]
+#    
+#    linen_data_twin = []
+#    for linen, occupancy in zip(twin_info, twin_row):
+#        linen_twin = int(linen) * occupancy
+#        linen_data_twin.append(linen_twin)
+#    return linen_data_twin
 
-def calculate_double(double_row):
-    """
-    calculate double room linen used
-    """
-    double_guide = SHEET.worksheet("double").get_all_values()
-    double_info = double_guide[1]
+#def calculate_double(double_row):
+#    """
+#    calculate double room linen used
+#    """
+#    double_guide = SHEET.worksheet("double").get_all_values()
+#    double_info = double_guide[1]
+#
+#    linen_data_double = []
+#    for linen, occupancy in zip(double_info, double_row):
+#        linen_double = int(linen) * occupancy
+#        linen_data_double.append(linen_double)
+#    return linen_data_double
 
-    linen_data_double = []
-    for linen, occupancy in zip(double_info, double_row):
-        linen_double = int(linen) * occupancy
-        linen_data_double.append(linen_double)
-    return linen_data_double
+#def calculate_triple(triple_row):
+#    """
+#    calculate triple room linen used
+#    """
+#    triple_guide = SHEET.worksheet("triple").get_all_values()
+#    triple_info = triple_guide[1]
+#
+#    linen_data_triple = []
+#    for linen, occupancy in zip(triple_info, triple_row):
+#        linen_triple = int(linen) * occupancy
+#        linen_data_triple.append(linen_triple)
+#    return linen_data_triple
 
-def calculate_triple(triple_row):
-    """
-    calculate triple room linen used
-    """
-    triple_guide = SHEET.worksheet("triple").get_all_values()
-    triple_info = triple_guide[1]
+#def calculate_family(family_row):
+#    """
+#    calculate family room linen used
+#    """
+#    family_guide = SHEET.worksheet("family").get_all_values()
+#    family_info = family_guide[1]
+#
+#    linen_data_family = []
+#    for linen, occupancy in zip(family_info, family_row):
+#       linen_family = int(linen) * occupancy
+#        linen_data_family.append(linen_family)
+#    return linen_data_family
 
-    linen_data_triple = []
-    for linen, occupancy in zip(triple_info, triple_row):
-        linen_triple = int(linen) * occupancy
-        linen_data_triple.append(linen_triple)
-    return linen_data_triple
-
-def calculate_family(family_row):
-    """
-    calculate family room linen used
-    """
-    family_guide = SHEET.worksheet("family").get_all_values()
-    family_info = family_guide[1]
-
-    linen_data_family = []
-    for linen, occupancy in zip(family_info, family_row):
-        linen_family = int(linen) * occupancy
-        linen_data_family.append(linen_family)
-    return linen_data_family
-
-def calculate_suite(suite_row):
-    """
-    calculate family room linen used
-    """
-    suite_guide = SHEET.worksheet("suite").get_all_values()
-    suite_info = suite_guide[1]
-
-    linen_data_suite = []
-    for linen, occupancy in zip(suite_info, suite_row):
-        linen_suite = int(linen) * occupancy
-        linen_data_suite.append(linen_suite)
-    return linen_data_suite
+#def calculate_suite(suite_row):
+#    """
+#    calculate family room linen used
+#    """
+#    suite_guide = SHEET.worksheet("suite").get_all_values()
+#    suite_info = suite_guide[1]
+#
+#    linen_data_suite = []
+#    for linen, occupancy in zip(suite_info, suite_row):
+#        linen_suite = int(linen) * occupancy
+#        linen_data_suite.append(linen_suite)
+#    return linen_data_suite
 
 def add_linen_togther(a, b):
     """
@@ -217,6 +217,38 @@ def calculate_new_linen(new_linen):
     total_linen_used = add_linen_togther(linen_figure_four, suite_linen_used)
     return total_linen_used
 
+    return order_data
+
+
+def order_day():
+    """
+    Get answer to question yes or no for is it a day to order
+    """
+    while True: 
+        print("Is today a day where you order linen?")
+        print("Please enter yes or no")
+
+        answer = input("Enter yes or no here")
+    
+        vailidate_answer(answer)
+
+        if vailidate_answer(answer):
+            print("Answer is valid")
+            break
+    return answer
+
+
+def validate_answer(answered):
+    try:
+        if answered != 'yes' or 'no':
+            raise ValueError(
+                f"Exactly 5 values required, you provided {(answered)}"
+            )
+    except ValueError as e:
+        print(f"Invalid occupancy data: {e}, please try again.\n")
+        return False
+    return True
+
 #main core that runs all functions
 
 def main():
@@ -230,6 +262,7 @@ def main():
     print("New Linen Calculated\n")
     print(new_linen_used)
     update_worksheet(new_linen_used, "linen_used")
+    order_day_answer = order_day()
 
 print("Welcome to the hotel automated Linen Stock System\n")
 main()
