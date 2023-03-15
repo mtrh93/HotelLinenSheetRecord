@@ -229,6 +229,9 @@ def get_last_week_data():
         columns.append(column[-7:])
     return columns
 
+#function that calculates the weeks order
+#parts of code used from lovesandwich walkthrough
+
 def calculate_week_order(data):
     """
     calculates the linen used for the past 7 days
@@ -241,6 +244,8 @@ def calculate_week_order(data):
         average = sum(int_column) / len(int_column)
         linen_order_data.append(round(average))
     return linen_order_data
+
+#function that asks if it is an ordering day and order needs to be generated
 
 def order_day():
     """
