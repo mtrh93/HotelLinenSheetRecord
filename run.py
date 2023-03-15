@@ -2,6 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from pprint import pprint
 
+# connection between python and google sheet
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -12,6 +13,8 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hotel_linen_sheet_record')
+
+# retrieve occupacy data request
 
 def get_occupancy_data():
     """
@@ -35,6 +38,9 @@ def get_occupancy_data():
 
     return occupancy_data
 
+#validates if data entered is valid
+#code used is from the love_sandwiches project
+
 def vailidate_data(values):
     """
     Converting strings to integers.
@@ -53,6 +59,7 @@ def vailidate_data(values):
     
     return True
 
+#code updates the occupancy worksheet of the google sheet
 
 def update_occupancy_worksheet(data):
     """
@@ -63,6 +70,8 @@ def update_occupancy_worksheet(data):
     occupancy_sheet.append_row(data)
     print("Occupancy sheet updated succesfully!\n")
 
+#code that updates the linen_used worksheet of the google sheet
+
 def update_linen_worksheet(data):
     """
     Update the linen used worksheet, adds new row with the list data provided
@@ -71,6 +80,17 @@ def update_linen_worksheet(data):
     linen_sheet = SHEET.worksheet("linen_used")
     linen_sheet.append_row(data)
     print("Linen sheet updated succesfully!\n")
+
+def update_worksheet(data, worksheet):
+    """
+    Update the worksheet passed through the function, adds new row with the list data provided
+    """
+    print(f"Updating {worksheet} sheet...\n")
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f"{worksheet} sheet updated succesfully!\n")
+
+#code that overall takes the occupancy data and calculates how much linen has been used
 
 def calculate_single(single_row):
     """
@@ -160,6 +180,9 @@ def add_linen_togther(a, b):
         compile_linen_figure.append(linen_figure)
     return compile_linen_figure
 
+#code that runs all the calculate linen functions
+#each rom type is pulled seperately from sheet so that linen numbers can be adjusted
+
 def calculate_new_linen(new_linen):
     """
     runs the calculate new linen fucntions
@@ -179,7 +202,7 @@ def calculate_new_linen(new_linen):
     total_linen_used = add_linen_togther(linen_figure_four, suite_linen_used)
     return total_linen_used
 
-    
+#main core that runs all functions
 
 def main():
     """
@@ -187,11 +210,11 @@ def main():
     """
     data = get_occupancy_data()
     occupancy_data = [int(num) for num in data]
-    update_occupancy_worksheet(occupancy_data)
+    update_worksheet(occupancy_data, "occupancy")
     new_linen_used = calculate_new_linen(occupancy_data)
     print("New Linen Calculated\n")
     print(new_linen_used)
-    update_linen_worksheet(new_linen_used)
+    update_worksheet(new_linen_used, "linen_used")
 
 print("Welcome to the hotel automated Linen Stock System\n")
 main()
