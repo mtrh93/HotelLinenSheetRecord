@@ -70,8 +70,6 @@ def update_occupancy_worksheet(data):
     occupancy_sheet.append_row(data)
     print("Occupancy sheet updated succesfully!\n")
 
-#code that updates the linen_used worksheet of the google sheet
-
 def update_linen_worksheet(data):
     """
     Update the linen used worksheet, adds new row with the list data provided
@@ -80,6 +78,9 @@ def update_linen_worksheet(data):
     linen_sheet = SHEET.worksheet("linen_used")
     linen_sheet.append_row(data)
     print("Linen sheet updated succesfully!\n")
+
+#refactored code updates the passed worksheet on the google sheet
+#code used is from the love sandwiches walkthrough
 
 def update_worksheet(data, worksheet):
     """
@@ -91,6 +92,20 @@ def update_worksheet(data, worksheet):
     print(f"{worksheet} sheet updated succesfully!\n")
 
 #code that overall takes the occupancy data and calculates how much linen has been used
+
+#refactored code that calculates linen
+def calculate_linen(linen_row, room_type):
+    """
+    calculate room linen used
+    """
+    linen_guide = SHEET.worksheet(room_type).get_all_values()
+    linen_info = linen_guide[1]
+    print(f"calculating {room_type} linen used")
+    linen_data = []
+    for linen, occupancy in zip(linen_info, linen_row):
+        linen_type = int(linen) * occupancy
+        linen_data.append(linen_type)
+    return linen_data
 
 def calculate_single(single_row):
     """
@@ -189,12 +204,12 @@ def calculate_new_linen(new_linen):
     """
     print("Calculating Linen Used.\n")
     
-    single_linen_used = calculate_single(new_linen)
-    twin_linen_used = calculate_twin(new_linen)
-    double_linen_used = calculate_double(new_linen)
-    triple_linen_used = calculate_triple(new_linen)
-    family_linen_used = calculate_family(new_linen)
-    suite_linen_used = calculate_suite(new_linen)
+    single_linen_used = calculate_linen(new_linen, "single")
+    twin_linen_used = calculate_linen(new_linen, "twin")
+    double_linen_used = calculate_linen(new_linen, "double")
+    triple_linen_used = calculate_linen(new_linen, "triple")
+    family_linen_used = calculate_linen(new_linen, "family")
+    suite_linen_used = calculate_linen(new_linen, "suite")
     linen_figure_one = add_linen_togther(single_linen_used, twin_linen_used)
     linen_figure_two = add_linen_togther(linen_figure_one, double_linen_used)
     linen_figure_three = add_linen_togther(linen_figure_two, triple_linen_used)
