@@ -4,9 +4,9 @@ An automated linen update sheet that will calculate and do math on behalf of the
 The hotel user can print the daily occupancy and enter it into the automated system for it to calculate the 
 amount of linen used and then produce an order to be sent off based on the last 7 day average.
 
-[Here is the live version of my project]()
+[Here is the live version of my project](https://mtrh-hotel-linen-record.herokuapp.com/)
 
-[image]
+![Multi-Device-View](images/linen_app_mutli_device.png)
 
 ## How to Use
 
@@ -25,21 +25,21 @@ It then asks the user if it is an order day, which if answered yes will also wor
         * This data is validated to make sure it is entered in the correct format
         * This data is then updated to the external Google Sheet
 
-    [image]
+  ![Linen-Input-Section](images/Linen_input.png)
 
     * Linen Useage calculation
         * The occupancy data is then used to calculate how much linen has been used. 
         * It takes the room type information from the google sheet and uses this to calculate.
         * It takes the input given and the room type data to work out linen used.
 
-    [image]
+  ![Linen-Calculating-Section](images/Linen_calculate.png)
 
     * Linen order request
         * The user is then prompted to decalre via input if it is an order day.
         * Based on the user answer it will then end the automation or generate an order
         * This order is then uploaded to the external google sheet.
 
-    [image]
+  ![Linen-Order-Request-Section](images/linen_order_request.png)
     
  * ### Future Features
     * Further connecting sheets to allow for linen order to be sent straight to linen company
