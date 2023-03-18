@@ -53,11 +53,22 @@ The sheets store the data the user inputs, the linen used and the order.
 The sheet also draws information to perform its calculation from the room type worksheets.
 
 ## Testing
+I have manually tested this project by doing the following:
 
+* Passed the code through a PEP8 linter and removed errors that came up
+* Given invalid inputs: strings when numbers are expected.
+* Tested in my local terminal and The Heroku terminal
+* Manually checked to make sure the sheet is updating
 
 ### Bugs
+Solved Bugs
+* Code for calculating average wasn't working when less than 7 days of figures in sheet.
+    * Fixed by making sure there was 7 days worth of data to input.
+* The linen order input request loop wasn't breaking.
+    * Fixed by redoing the validation function.
 
 ### Remaining Bugs
+* The linen order input validation now only checks to see if yes was entered. It is not properly checking to see if no was entered instead.
 
 
 ### Validator Testing
