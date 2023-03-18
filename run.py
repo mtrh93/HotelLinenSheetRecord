@@ -24,7 +24,7 @@ def get_occupancy_data():
         print("The figures entered should be 6 numbers, seperated by comas.")
         print("Example: 10,20,30,40,50,60")
 
-        occupancy_str = input("Enter the ocupancy data here: ")
+        occupancy_str = input("Enter the ocupancy data here: \n")
         occupancy_data = occupancy_str.split(",")
         vailidate_data(occupancy_data)
 
@@ -250,7 +250,7 @@ def order_day():
         print("please state if it is a linen order day")
         print("Example: yes / no")
 
-        answered = input("Enter yes or no here: \n")
+        answered = input("Enter yes or no here:\n")
         if answered == "yes":
             order_columns = get_last_week_data()
             order_data = calculate_week_order(order_columns)
