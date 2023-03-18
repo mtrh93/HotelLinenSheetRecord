@@ -19,15 +19,12 @@ def get_occupancy_data():
     """
     Get occupancy figures from the user
     """
-
     while True:
-        
         print("Please enter occupancy data from the last day.")
         print("The figures entered should be 6 numbers, seperated by comas.")
         print("Example: 10,20,30,40,50,60")
 
         occupancy_str = input("Enter the ocupancy data here: ")
-    
         occupancy_data = occupancy_str.split(",")
         vailidate_data(occupancy_data)
 
@@ -37,8 +34,8 @@ def get_occupancy_data():
 
     return occupancy_data
 
-#validates if data entered is valid
-#code used is from the love_sandwiches project
+# validates if data entered is valid
+# code used is from the love_sandwiches project
 
 def vailidate_data(values):
     """
@@ -55,12 +52,11 @@ def vailidate_data(values):
     except ValueError as e:
         print(f"Invalid occupancy data: {e}, please try again.\n")
         return False
-    
     return True
 
-#code updates the occupancy worksheet of the google sheet
+# code updates the occupancy worksheet of the google sheet
 
-#def update_occupancy_worksheet(data):
+# def update_occupancy_worksheet(data):
 #    """
 #    Update the occupancy worksheet, adds new row with the list data provided
 #    """
@@ -69,7 +65,7 @@ def vailidate_data(values):
 #    occupancy_sheet.append_row(data)
 #    print("Occupancy sheet updated succesfully!\n")
 
-#def update_linen_worksheet(data):
+# def update_linen_worksheet(data):
 #    """
 #    Update the linen used worksheet, adds new row with the list data provided
 #    """
@@ -78,21 +74,23 @@ def vailidate_data(values):
 #    linen_sheet.append_row(data)
 #    print("Linen sheet updated succesfully!\n")
 
-#refactored code updates the passed worksheet on the google sheet
-#code used is from the love sandwiches walkthrough
+# refactored code updates the passed worksheet on the google sheet
+# code used is from the love sandwiches walkthrough
 
 def update_worksheet(data, worksheet):
     """
-    Update the worksheet passed through the function, adds new row with the list data provided
+    Update the worksheet passed through the function,
+    adds new row with the list data provided
     """
     print(f"Updating {worksheet} sheet...\n")
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
     print(f"{worksheet} sheet updated succesfully!\n")
 
-#code that overall takes the occupancy data and calculates how much linen has been used
+# code that overall takes the occupancy data and
+# calculates how much linen has been used
 
-#refactored code that calculates linen
+# refactored code that calculates linen
 def calculate_linen(linen_row, room_type):
     """
     calculate room linen used
@@ -106,33 +104,31 @@ def calculate_linen(linen_row, room_type):
         linen_data.append(linen_type)
     return linen_data
 
-#def calculate_single(single_row):
+# def calculate_single(single_row):
 #    """
 #    calculate single room linen used
 #    """
 #    single_guide = SHEET.worksheet("single").get_all_values()
 #    single_info = single_guide[1]
-#    
 #    linen_data_single = []
 #    for linen, occupancy in zip(single_info, single_row):
 #        linen_single = int(linen) * occupancy
 #        linen_data_single.append(linen_single)
 #    return linen_data_single
 
-#def calculate_twin(twin_row):
+# def calculate_twin(twin_row):
 #    """
 #    calculate twin room linen used
 #    """
 #    twin_guide = SHEET.worksheet("twin").get_all_values()
 #    twin_info = twin_guide[1]
-#    
 #    linen_data_twin = []
 #    for linen, occupancy in zip(twin_info, twin_row):
 #        linen_twin = int(linen) * occupancy
 #        linen_data_twin.append(linen_twin)
 #    return linen_data_twin
 
-#def calculate_double(double_row):
+# def calculate_double(double_row):
 #    """
 #    calculate double room linen used
 #    """
@@ -145,7 +141,7 @@ def calculate_linen(linen_row, room_type):
 #        linen_data_double.append(linen_double)
 #    return linen_data_double
 
-#def calculate_triple(triple_row):
+# def calculate_triple(triple_row):
 #    """
 #    calculate triple room linen used
 #    """
@@ -158,7 +154,7 @@ def calculate_linen(linen_row, room_type):
 #        linen_data_triple.append(linen_triple)
 #    return linen_data_triple
 
-#def calculate_family(family_row):
+# def calculate_family(family_row):
 #    """
 #    calculate family room linen used
 #    """
@@ -171,7 +167,7 @@ def calculate_linen(linen_row, room_type):
 #        linen_data_family.append(linen_family)
 #    return linen_data_family
 
-#def calculate_suite(suite_row):
+# def calculate_suite(suite_row):
 #    """
 #    calculate family room linen used
 #    """
@@ -194,15 +190,15 @@ def add_linen_togther(a, b):
         compile_linen_figure.append(linen_figure)
     return compile_linen_figure
 
-#code that runs all the calculate linen functions
-#each rom type is pulled seperately from sheet so that linen numbers can be adjusted
+# code that runs all the calculate linen functions
+# each room type is pulled seperately from sheet
+# so that linen numbers can be adjusted
 
 def calculate_new_linen(new_linen):
     """
     runs the calculate new linen fucntions
     """
     print("Calculating Linen Used.\n")
-    
     single_linen_used = calculate_linen(new_linen, "single")
     twin_linen_used = calculate_linen(new_linen, "twin")
     double_linen_used = calculate_linen(new_linen, "double")
@@ -223,13 +219,13 @@ def get_last_week_data():
     linen_numbers = SHEET.worksheet("linen_used")
 
     columns = []
-    for ind in range (1,7):
+    for ind in range(1, 7):
         column = linen_numbers.col_values(ind)
         columns.append(column[-7:])
     return columns
 
-#function that calculates the weeks order
-#parts of code used from lovesandwich walkthrough
+# function that calculates the weeks order
+# parts of code used from lovesandwich walkthrough
 
 def calculate_week_order(data):
     """
@@ -244,7 +240,7 @@ def calculate_week_order(data):
         linen_order_data.append(round(average))
     return linen_order_data
 
-#function that asks if it is an ordering day and order needs to be generated
+# function that asks if it is an ordering day and order needs to be generated
 
 def order_day():
     """
@@ -259,13 +255,15 @@ def order_day():
             order_columns = get_last_week_data()
             order_data = calculate_week_order(order_columns)
             update_worksheet(order_data, "linen_to_order")
+            print("Linen to be ordered is;")
+            print(order_data)
             print("Order Calculated and uploaded succesfully")
             break
         else:
             break
     return answered
 
-#main core that runs all functions
+# main core that runs all functions
 
 def main():
     """
@@ -280,7 +278,6 @@ def main():
     update_worksheet(new_linen_used, "linen_used")
     order_day()
     print("Linen Automation System Cycle Complete")
-
 
 
 print("Welcome to the hotel automated Linen Stock System\n")
